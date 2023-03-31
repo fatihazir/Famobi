@@ -9,16 +9,15 @@ class ApiBase {
             }
         }).then((response) => response.json()).
             then((json) => {
-                console.log(json);
-                // if (json.message == "Success") {
-                //     requestProps.successFunction(json)
-                // }
-                // else {
-                //     requestProps.errorFunction(json)
-                // }
+                if (json.status == 0) {
+                    requestProps.errorFunction(json.status_message)
+                }
+                else {
+                    requestProps.successFunction(json)
+                }
             }).catch((err) => {
                 this.ExLog(err)
-                requestProps.exceptionFunction(err)
+                requestProps.exceptionFunction(err.toString())
             })
     }
 
