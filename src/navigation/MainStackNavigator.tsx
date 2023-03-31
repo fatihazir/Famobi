@@ -6,6 +6,7 @@ import GameDetailScreen from '../screens/GameDetailScreen';
 import FilterScreen from '../screens/FilterScreen';
 import { Platform, View } from 'react-native';
 import Header from '../components/mainStackNavigator/Header';
+import FilterHeader from '../components/filterHeader';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +26,7 @@ function MainStackNavigator(): JSX.Element {
                     name={routes.FilterScreen}
                     component={FilterScreen}
                     options={{
-                        headerShown: false,
+                        header: (() => <FilterHeader />),
                         presentation: 'modal',
                         gestureEnabled: true,
                         ...(isAndroid && TransitionPresets.ModalPresentationIOS)
