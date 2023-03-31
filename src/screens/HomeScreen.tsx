@@ -7,10 +7,10 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '../utilities/routes/index';
-import { useNavigationModel } from '../models/typescript/navigation';
+import { UseNavigationModel } from '../models/typescript/navigation';
 
 function HomeScreen(): JSX.Element {
-    const navigation: useNavigationModel = useNavigation();
+    const navigation: UseNavigationModel = useNavigation();
     return (
         <View style={styles.container}>
             <Button
