@@ -2,13 +2,22 @@ import React from 'react';
 import {
     View,
     StyleSheet,
-    Text
+    Text,
+    Button
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { routes } from '../utilities/routes/index';
+import { useNavigationModel } from '../models/typescript/navigation';
 
 function HomeScreen(): JSX.Element {
+    const navigation: useNavigationModel = useNavigation();
     return (
         <View style={styles.container}>
-            <Text>home</Text>
+            <Button
+                onPress={() => { navigation.navigate(routes.GameDetailScreen) }}
+                title="Go detail"
+                color="#841584"
+            />
         </View>
     );
 }
