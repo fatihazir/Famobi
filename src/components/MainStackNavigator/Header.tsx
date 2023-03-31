@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-    SafeAreaView,
     StyleSheet,
-    Text,
     View,
     Image,
     TouchableOpacity
@@ -11,11 +9,15 @@ import { height_screen } from '../../utilities/dimensions';
 import { useNavigation } from '@react-navigation/native';
 import SvgLeftArrow from '../../assets/svgs/SvgLeftArrow';
 import { routes } from '../../utilities/routes';
-import { useNavigationModel } from '../../models/typescript/navigation';
+import { UseNavigationModel } from '../../models/typescript/navigation';
+import { SharedContextModel } from '../../models/typescript/sharedContext/index';
+import { SharedContext } from '../../store/context/SharedContext';
 
 function Header(): JSX.Element {
-    const navigation: useNavigationModel = useNavigation();
-    let showFilterIcon = true
+    const navigation: UseNavigationModel = useNavigation();
+    const currentContext: SharedContextModel = useContext(SharedContext)
+
+    const { showRightSideOfHeader } = currentContext
 
     function OnGoBackPressed() {
         navigation.goBack()
@@ -32,7 +34,7 @@ function Header(): JSX.Element {
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} resizeMode='cover' source={require('../../assets/photos/freetogame.png')} />
             </View>
-            {showFilterIcon ?
+            {showRightSideOfHeader ?
                 <TouchableOpacity style={styles.rightSection} onPress={OnGoFilterPressed}>
                     <Image style={styles.filterIcon} resizeMode='center' source={require('../../assets/photos/filter.png')} />
                 </TouchableOpacity>
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
     },
     filterIcon: {
         height: '50%',
-        width: '50%'
+        width: '50%',
+        flex: 1,
     }
 
 });
