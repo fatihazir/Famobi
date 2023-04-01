@@ -33,8 +33,11 @@ function HomeScreen(): JSX.Element {
     function GetData() {
         setShowOverlay(true)
         setShowGlobalLoading(true)
+        let paramsUrl = links.games + '?platform=' + platform.text.toLowerCase()
+        category.id !== "10" && (paramsUrl += ('&category=' + category.text.toLowerCase()))
+        console.log(paramsUrl);
         apibase.Get({
-            url: links.games + '?platform=' + platform.text.toLowerCase(),
+            url: paramsUrl,
             successFunction: (res: any) => {
                 dispatch(setGamesData(res))
                 setShowOverlay(false)

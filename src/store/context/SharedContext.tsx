@@ -7,8 +7,8 @@ export const SharedContextProvider = ({ children }: any) => {
     const [showRightSideOfHeader, setShowRightSideOfHeader] = useState<boolean>(true)
     const [showGoBackButton, setShowGoBackButton] = useState<boolean>(false)
     const [platform, setPlatform] = useState<OptionModel>({ id: "2", text: "All" })
-    const [category, setCategory] = useState<OptionModel>()
-    const [sortby, setSortby] = useState<OptionModel>()
+    const [category, setCategory] = useState<OptionModel>({ id: "10", text: "aaa" }) //there is not default selection
+    const [sortby, setSortby] = useState<OptionModel>({ id: "10", text: "aaa" }) //there is not default selection
     const [applyTrigger, setApplyTrigger] = useState<number>(0)
 
     return (

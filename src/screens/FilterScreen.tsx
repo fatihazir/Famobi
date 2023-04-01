@@ -3,7 +3,8 @@ import {
     View,
     StyleSheet,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import { SharedContext } from '../store/context/SharedContext';
 import { SharedContextModel } from '../models/typescript/sharedContext';
@@ -12,11 +13,12 @@ import BouncyCheckboxGroup, {
 } from "react-native-bouncy-checkbox-group";
 import { useNavigation } from '@react-navigation/native';
 import { UseNavigationModel } from '../models/typescript/navigation';
+import { height_screen } from '../utilities/dimensions';
 
 function FilterScreen(): JSX.Element {
     const navigation: UseNavigationModel = useNavigation();
     const currentContext: SharedContextModel = useContext(SharedContext)
-    const { setPlatform, setCategory, setSortby, platform, setApplyTrigger, applyTrigger } = currentContext
+    const { setPlatform, setCategory, setSortby, platform, setApplyTrigger, applyTrigger, category, sortby } = currentContext
 
     function OnApplyPressed() {
         navigation.goBack()
@@ -25,8 +27,8 @@ function FilterScreen(): JSX.Element {
 
     return (
         <View style={styles.container}>
-            <View style={styles.firstSection}>
-                <Text style={styles.title}>Platform : {platform.text}</Text>
+            <ScrollView style={styles.firstSection}>
+                <Text style={styles.title}>Platform</Text>
                 <View style={styles.choicesSection}>
                     <BouncyCheckboxGroup
                         data={[{ id: "0", text: "Pc", textStyle: { textDecorationLine: 'none' } },
@@ -40,16 +42,43 @@ function FilterScreen(): JSX.Element {
                         }}
                     />
                 </View>
-                <Text style={styles.title}>Category</Text>
+                <Text style={styles.title}>Category : {category.text}</Text>
                 <View style={styles.choicesSection}>
-
+                    <BouncyCheckboxGroup
+                        data={[{ id: "0", text: "Mmorpg", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "1", text: "Shooter", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "2", text: "Strategy", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "3", text: "Action", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "4", text: "Racing", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "5", text: "Sports", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "6", text: "Survival", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        ]}
+                        style={{ flexDirection: 'column' }}
+                        initial={category.id}
+                        onChange={(selectedItem: ICheckboxButton) => {
+                            //@ts-ignore
+                            setCategory({ id: selectedItem.id, text: selectedItem.text })
+                        }}
+                    />
                 </View>
-                <Text style={styles.title}>Sort-by</Text>
+                <Text style={styles.title}>Sort-by:{sortby.text}</Text>
                 <View style={styles.choicesSection}>
-
+                    <BouncyCheckboxGroup
+                        data={[{ id: "0", text: "Release-date", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "1", text: "Popularity", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "2", text: "Alphabetical", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        { id: "3", text: "Relevance", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
+                        ]}
+                        style={{ flexDirection: 'column' }}
+                        initial={sortby.id}
+                        onChange={(selectedItem: ICheckboxButton) => {
+                            //@ts-ignore
+                            setSortby({ id: selectedItem.id, text: selectedItem.text })
+                        }}
+                    />
                 </View>
 
-            </View>
+            </ScrollView>
             <View style={styles.applySection}>
                 <TouchableOpacity onPress={OnApplyPressed}>
                     <Text style={styles.applyText}>Apply</Text>
@@ -66,7 +95,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     firstSection: {
-        flex: 5,
+        height: height_screen * .5,
     },
     title: {
         fontSize: 16,
@@ -85,7 +114,7 @@ const styles = StyleSheet.create({
     applySection: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     applyText: {
         fontSize: 32,
