@@ -35,7 +35,8 @@ function HomeScreen(): JSX.Element {
         setShowGlobalLoading(true)
         let paramsUrl = links.games + '?platform=' + platform.text.toLowerCase()
         category.id !== "10" && (paramsUrl += ('&category=' + category.text.toLowerCase()))
-        console.log(paramsUrl);
+        sortby.id !== "10" && (paramsUrl += ('&sort-by=' + sortby.text.toLowerCase()))
+
         apibase.Get({
             url: paramsUrl,
             successFunction: (res: any) => {
