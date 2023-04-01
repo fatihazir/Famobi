@@ -21,12 +21,12 @@ import {
 import { fonts } from '../utilities/fonts';
 import { GameModel } from '../models/typescript/game';
 import { height_screen, width_screen } from '../utilities/dimensions';
+import { routes } from '../utilities/routes';
 
 function HomeScreen(): JSX.Element {
     const navigation: UseNavigationModel = useNavigation();
     const currentContext: SharedContextModel = useContext(SharedContext)
     const { setShowGlobalLoading, setShowOverlay, platform, category, sortby, applyTrigger } = currentContext
-    const isFocused = useIsFocused()
     const dispatch = useDispatch();
     const data: Array<GameModel> = useSelector(games);
 
@@ -61,12 +61,16 @@ function HomeScreen(): JSX.Element {
         applyTrigger !== 0 && GetData()
     }, [applyTrigger])
 
+    function OnGamePressed(game: GameModel) {
+        navigation.navigate(routes.GameDetailScreen, { game })
+    }
+
     interface RenderItemModel {
         item: GameModel,
         index: number
     }
     const renderItem = useCallback((eachItem: RenderItemModel) => (
-        <TouchableOpacity key={eachItem.item.id} style={styles.eachGameContainer}>
+        <TouchableOpacity onPress={() => OnGamePressed(eachItem.item)} key={eachItem.item.id} style={styles.eachGameContainer}>
             <>
                 <Image resizeMode='stretch' style={styles.thumbnail} source={{ uri: eachItem.item.thumbnail }} />
                 <Text numberOfLines={1} style={styles.title}>{eachItem.item.title}</Text>
@@ -79,11 +83,6 @@ function HomeScreen(): JSX.Element {
             </View>
         </TouchableOpacity>
     ), []);
-
-    // let ITEM_HEIGHT = 150
-    // const getItemLayout = (data: any, index: number) => (
-    //     { length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index }
-    // );
 
     return (
         <View style={styles.container}>
