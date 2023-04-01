@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { GameModel } from '../../models/typescript/game';
 
 export const gamesSlice = createSlice({
     name: 'ganes',
