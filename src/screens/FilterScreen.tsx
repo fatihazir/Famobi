@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     View,
     StyleSheet,
@@ -20,11 +20,22 @@ function FilterScreen(): JSX.Element {
     const currentContext: SharedContextModel = useContext(SharedContext)
     const { setPlatform, setCategory, setSortby, platform, setApplyTrigger, applyTrigger, category, sortby } = currentContext
 
-    function OnApplyPressed() {
+    function ApplyFilters() {
         navigation.goBack()
         setApplyTrigger(applyTrigger + 1)
     }
 
+    function OnApplyPressed() {
+        ApplyFilters()
+    }
+
+    function ResetFilters() {
+        setPlatform({ id: "2", text: "All" })
+        setCategory({ id: "10", text: "aaa" })
+        setSortby({ id: "10", text: "aaa" })
+        ApplyFilters()
+
+    }
     return (
         <View style={styles.container}>
             <ScrollView style={styles.firstSection}>
@@ -42,7 +53,7 @@ function FilterScreen(): JSX.Element {
                         }}
                     />
                 </View>
-                <Text style={styles.title}>Category : {category.text}</Text>
+                <Text style={styles.title}>Category</Text>
                 <View style={styles.choicesSection}>
                     <BouncyCheckboxGroup
                         data={[{ id: "0", text: "Mmorpg", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
@@ -55,13 +66,13 @@ function FilterScreen(): JSX.Element {
                         ]}
                         style={{ flexDirection: 'column' }}
                         initial={category.id}
-                        onChange={(selectedItem: ICheckboxButton) => {
+                        onChange={(selectedItem: ICheckboxButton, ...args) => {
                             //@ts-ignore
                             setCategory({ id: selectedItem.id, text: selectedItem.text })
                         }}
                     />
                 </View>
-                <Text style={styles.title}>Sort-by:{sortby.text}</Text>
+                <Text style={styles.title}>Sort-by</Text>
                 <View style={styles.choicesSection}>
                     <BouncyCheckboxGroup
                         data={[{ id: "0", text: "Release-date", textStyle: { textDecorationLine: 'none' }, style: { marginBottom: 12 } },
@@ -80,6 +91,9 @@ function FilterScreen(): JSX.Element {
 
             </ScrollView>
             <View style={styles.applySection}>
+                <TouchableOpacity onPress={ResetFilters}>
+                    <Text style={[styles.applyText, styles.resetText]}>Reset</Text>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={OnApplyPressed}>
                     <Text style={styles.applyText}>Apply</Text>
                 </TouchableOpacity>
@@ -113,8 +127,10 @@ const styles = StyleSheet.create({
     },
     applySection: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
+        flexDirection: 'row',
+
     },
     applyText: {
         fontSize: 32,
@@ -123,6 +139,9 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 40,
     },
+    resetText: {
+        color: 'red'
+    }
 });
 
 export default FilterScreen;
