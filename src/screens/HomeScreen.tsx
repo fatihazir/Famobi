@@ -12,12 +12,20 @@ import apibase from '../utilities/apibase';
 import { links } from '../utilities/apibase/links'
 import { SharedContext } from '../store/context/SharedContext';
 import { SharedContextModel } from '../models/typescript/sharedContext';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    setGamesData, games
+} from '../store/redux/gamesSlice';
 
 function HomeScreen(): JSX.Element {
     const navigation: UseNavigationModel = useNavigation();
     const currentContext: SharedContextModel = useContext(SharedContext)
     const { setShowGoBackButton } = currentContext
     const isFocused = useIsFocused()
+    const dispatch = useDispatch();
+    const data = useSelector(games);
+
+    console.log("data:", data);
 
     function GetData() {
         apibase.Get({
@@ -50,6 +58,7 @@ function HomeScreen(): JSX.Element {
                 title="Go detail"
                 color="#841584"
             />
+            <Text>textt{data.length}</Text>
         </View>
     );
 }
