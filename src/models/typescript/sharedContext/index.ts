@@ -8,4 +8,17 @@ export interface SharedContextModel {
     setShowRightSideOfHeader: (arg: boolean) => Function;
     showGoBackButton: boolean;
     setShowGoBackButton: (arg: boolean) => Function;
+    platform: OptionModel;
+    setPlatform: (arg: OptionModel) => Function;
+    category: OptionModel;
+    setCategory: (arg: OptionModel) => Function;
+    sortby: OptionModel;
+    setSortby: (arg: OptionModel) => Function;
+    applyTrigger: number,
+    setApplyTrigger: (arg: number) => Function;
+}
+
+export interface OptionModel {
+    id: any,
+    text: string
 }

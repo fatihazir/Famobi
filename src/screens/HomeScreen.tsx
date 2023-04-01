@@ -9,7 +9,6 @@ import {
     Image
 } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { routes } from '../utilities/routes/index';
 import { UseNavigationModel } from '../models/typescript/navigation';
 import apibase from '../utilities/apibase';
 import { links } from '../utilities/apibase/links'
@@ -26,7 +25,7 @@ import { height_screen, width_screen } from '../utilities/dimensions';
 function HomeScreen(): JSX.Element {
     const navigation: UseNavigationModel = useNavigation();
     const currentContext: SharedContextModel = useContext(SharedContext)
-    const { setShowGoBackButton, setShowGlobalLoading, setShowOverlay } = currentContext
+    const { setShowGlobalLoading, setShowOverlay, platform, category, sortby, applyTrigger } = currentContext
     const isFocused = useIsFocused()
     const dispatch = useDispatch();
     const data: Array<GameModel> = useSelector(games);
@@ -35,7 +34,7 @@ function HomeScreen(): JSX.Element {
         setShowOverlay(true)
         setShowGlobalLoading(true)
         apibase.Get({
-            url: links.games,
+            url: links.games + '?platform=' + platform.text.toLowerCase(),
             successFunction: (res: any) => {
                 dispatch(setGamesData(res))
                 setShowOverlay(false)
@@ -55,8 +54,8 @@ function HomeScreen(): JSX.Element {
     }, [])
 
     useEffect(() => {
-        isFocused ? setShowGoBackButton(false) : setShowGoBackButton(true)
-    }, [isFocused])
+        applyTrigger !== 0 && GetData()
+    }, [applyTrigger])
 
     interface RenderItemModel {
         item: GameModel,
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
         color: '#adadad',
         fontSize: 14,
         textAlign: 'right',
-        paddingVertical: 8
+        paddingBottom: 8
     },
     eachGameContainer: {
         width: '100%',
