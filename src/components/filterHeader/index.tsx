@@ -22,7 +22,7 @@ function FilterHeader(): JSX.Element {
         <View style={styles.container}>
             <View style={styles.leftSection}></View>
             <View style={styles.titleSection}>
-                <Text style={styles.titleText}>Filter</Text>
+                <Text style={styles.titleText}>Filter and Sort</Text>
             </View>
             <TouchableOpacity style={styles.rightSection} onPress={OnGoBackPressed}>
                 <Image source={require('../../assets/photos/x.png')} />
