@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
     View,
     StyleSheet,
     Text,
     Button
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { routes } from '../utilities/routes/index';
 import { UseNavigationModel } from '../models/typescript/navigation';
 import apibase from '../utilities/apibase';
 import { links } from '../utilities/apibase/links'
+import { SharedContext } from '../store/context/SharedContext';
+import { SharedContextModel } from '../models/typescript/sharedContext';
 
 function HomeScreen(): JSX.Element {
     const navigation: UseNavigationModel = useNavigation();
+    const currentContext: SharedContextModel = useContext(SharedContext)
+    const { setShowGoBackButton } = currentContext
+    const isFocused = useIsFocused()
 
     function GetData() {
         apibase.Get({
@@ -32,6 +37,11 @@ function HomeScreen(): JSX.Element {
     useEffect(() => {
         GetData()
     }, [])
+
+    useEffect(() => {
+        isFocused ? setShowGoBackButton(false) : setShowGoBackButton(true)
+    }, [isFocused])
+
 
     return (
         <View style={styles.container}>

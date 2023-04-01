@@ -17,7 +17,7 @@ function Header(): JSX.Element {
     const navigation: UseNavigationModel = useNavigation();
     const currentContext: SharedContextModel = useContext(SharedContext)
 
-    const { showRightSideOfHeader } = currentContext
+    const { showRightSideOfHeader, showGoBackButton } = currentContext
 
     function OnGoBackPressed() {
         navigation.goBack()
@@ -28,9 +28,12 @@ function Header(): JSX.Element {
     }
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.goBackButton} onPress={OnGoBackPressed}>
-                <SvgLeftArrow />
-            </TouchableOpacity>
+            {showGoBackButton ?
+                <TouchableOpacity style={styles.leftSection} onPress={OnGoBackPressed}>
+                    <SvgLeftArrow />
+                </TouchableOpacity>
+                :
+                <View style={styles.leftSection}></View>}
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} resizeMode='cover' source={require('../../assets/photos/freetogame.png')} />
             </View>
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%'
     },
-    goBackButton: {
+    leftSection: {
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1

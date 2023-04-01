@@ -4,6 +4,7 @@ export const SharedContextProvider = ({ children }: any) => {
     const [showOverlay, setShowOverlay] = useState<boolean>(false)
     const [showGlobalLoading, setShowGlobalLoading] = useState(false)
     const [showRightSideOfHeader, setShowRightSideOfHeader] = useState<boolean>(true)
+    const [showGoBackButton, setShowGoBackButton] = useState(false)
 
     return (
         <SharedContext.Provider
@@ -13,7 +14,9 @@ export const SharedContextProvider = ({ children }: any) => {
                 showGlobalLoading,
                 setShowGlobalLoading,
                 showRightSideOfHeader,
-                setShowRightSideOfHeader
+                setShowRightSideOfHeader,
+                showGoBackButton,
+                setShowGoBackButton
             }}>
             {children}
         </SharedContext.Provider>

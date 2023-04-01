@@ -5,7 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import GameDetailScreen from '../screens/GameDetailScreen';
 import FilterScreen from '../screens/FilterScreen';
 import { Platform, View } from 'react-native';
-import Header from '../components/mainStackNavigator/Header';
+import Header from '../components/mainHeader/Header';
 import FilterHeader from '../components/filterHeader';
 
 const Stack = createStackNavigator();

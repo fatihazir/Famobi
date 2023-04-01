@@ -6,4 +6,6 @@ export interface SharedContextModel {
     setShowGlobalLoading: (arg: boolean) => Function;
     showRightSideOfHeader: boolean;
     setShowRightSideOfHeader: (arg: boolean) => Function;
+    showGoBackButton: boolean;
+    setShowGoBackButton: (arg: boolean) => Function;
 }
