@@ -1,39 +1,4 @@
-# This file contains screenshots and installation information.
-
-## Screenshots
-## Ios
-
-- HomeScreen
-![HomeScreen screenshot](/screenshots/ios_home.png)
-
-- FilterScreen
-![FilterScreen screenshot](/screenshots/ios_filter.png)
-
-- FilteredScreen
-![Filtered screenshot](/screenshots/ios_filtered.png)
-
-- GameDetailScreen
-![GameDetailScreen screenshot](/screenshots/ios_game_detail.png)
-
-- AlertModal
-![AlertModal screenshot](/screenshots/ios_alert.png)
-
-## Android
-
-- HomeScreen
-![HomeScreen screenshot](/screenshots/android_home.png)
-
-- FilterScreen
-![FilterScreen screenshot](/screenshots/android_filter.png)
-
-- FilteredScreen
-![Filtered screenshot](/screenshots/android_filtered.png)
-
-- GameDetailScreen
-![GameDetailScreen screenshot](/screenshots/android_game_detail.png)
-
-- AlertModal
-![AlertModal screenshot](/screenshots/android_alert.png)
+# This file contains installation steps and screenshots.
 
 ## Installation for macOS 
 
@@ -132,3 +97,39 @@ Click New and add the path for platform-tools. Simply paste your android sdk pat
 - Open your android studio and from the settings where you clicked to sdk manager(from more actions), click the virtual device manager. Then click the create device and choose pixel 2 and hit next. In the tab of select the system image, select the tiramisu api level 33 and hit next. Now you have a android emulator with tiramisu os. If it does not start otomatically, hit the play button on the device list and run it. Wait for it to be opened and click in your emulator's inside. If you skip that instruction, your computer might fail to detect the emulator which might lead to failure.
 - Go back to your terminal in home directory and type "npx react-native start"
 - Open another terminal in the home directory of the project and type "npx react-native run-android". With that command, your system is going to start the building process and run the application in emulator.
+
+## Screenshots
+## Ios
+
+- HomeScreen
+![HomeScreen screenshot](/screenshots/ios_home.png)
+
+- FilterScreen
+![FilterScreen screenshot](/screenshots/ios_filter.png)
+
+- FilteredScreen
+![Filtered screenshot](/screenshots/ios_filtered.png)
+
+- GameDetailScreen
+![GameDetailScreen screenshot](/screenshots/ios_game_detail.png)
+
+- AlertModal
+![AlertModal screenshot](/screenshots/ios_alert.png)
+
+## Android
+
+- HomeScreen
+![HomeScreen screenshot](/screenshots/android_home.png)
+
+- FilterScreen
+![FilterScreen screenshot](/screenshots/android_filter.png)
+
+- FilteredScreen
+![Filtered screenshot](/screenshots/android_filtered.png)
+
+- GameDetailScreen
+![GameDetailScreen screenshot](/screenshots/android_game_detail.png)
+
+- AlertModal
+![AlertModal screenshot](/screenshots/android_alert.png)
+
