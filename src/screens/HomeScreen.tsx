@@ -22,17 +22,24 @@ import { fonts } from '../utilities/fonts';
 import { GameModel } from '../models/typescript/game';
 import { height_screen, width_screen } from '../utilities/dimensions';
 import { routes } from '../utilities/routes';
+import ErrorModal from '../components/alertModal';
 
 function HomeScreen(): JSX.Element {
     const navigation: UseNavigationModel = useNavigation();
+
     const currentContext: SharedContextModel = useContext(SharedContext)
     const { setShowGlobalLoading, setShowOverlay, platform, category, sortby, applyTrigger } = currentContext
+
     const dispatch = useDispatch();
     const data: Array<GameModel> = useSelector(games);
+
+    const [showErrorModal, setShowErrorModal] = useState<boolean>(false)
+    const [errorModalAlertText, setErrorModalAlertText] = useState<string>("")
 
     function GetData() {
         setShowOverlay(true)
         setShowGlobalLoading(true)
+
         let paramsUrl = links.games + '?platform=' + platform.text.toLowerCase()
         category.id !== "10" && (paramsUrl += ('&category=' + category.text.toLowerCase()))
         sortby.id !== "10" && (paramsUrl += ('&sort-by=' + sortby.text.toLowerCase()))
@@ -45,10 +52,14 @@ function HomeScreen(): JSX.Element {
                 setShowGlobalLoading(false)
             },
             errorFunction: (res: any) => {
-                console.log("error : ", res);
+                setErrorModalAlertText(res)
+                setShowGlobalLoading(false)
+                setShowErrorModal(true)
             },
             exceptionFunction: (ex: any) => {
-
+                setErrorModalAlertText(ex)
+                setShowGlobalLoading(false)
+                setShowErrorModal(true)
             }
         })
     }
@@ -86,6 +97,11 @@ function HomeScreen(): JSX.Element {
 
     return (
         <View style={styles.container}>
+            <ErrorModal
+                text={errorModalAlertText}
+                show={showErrorModal}
+                onSuccess={() => { currentContext.setShowOverlay(false), setShowErrorModal(false) }}
+            />
             <Text style={styles.gamesFoundText}>{data.length}</Text>
             <FlatList
                 showsVerticalScrollIndicator={false}
