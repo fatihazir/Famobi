@@ -1,4 +1,5 @@
-# This file contains installation steps and screenshots.
+
+# THIS FILE CONTAINS INSTALLATION STEPS AND **SCREENSHOTS**
 
 ## Installation for macOS 
 
